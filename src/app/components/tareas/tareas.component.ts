@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TareaService } from '../../services/tarea.service';
 import { Tarea } from '../../Models/Tarea';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-tareas',
@@ -9,22 +11,34 @@ import { Tarea } from '../../Models/Tarea';
 })
 export class TareasComponent implements OnInit {
 
+  todoForm: FormGroup;
   task: any[] = [];
-  constructor(private tareaService: TareaService) {
+   _tareaService: any;
+  constructor(private tareaService: TareaService, private formbiulder: FormBuilder) {
+   this._tareaService = tareaService;
 
-    const tarea = new Tarea();
-    tarea.ID = 2;
-    tarea.descripcion = 'Tarea desde App AngularJS';
-    tarea.estado = true;
-    // tareaService.addtask(tarea);
+   this._tareaService.gettask()
+   .subscribe((resp: any) => {
+     this.task = resp;
+   });
+  }
 
-    tareaService.gettask()
-    .subscribe((resp: any) => {
-      this.task = resp;
+
+  ngOnInit() {
+    this.todoForm = this.formbiulder.group({
+      descripcion: [''],
+      estado: false
     });
   }
 
-  ngOnInit() {
-  }
+  createtask(FormsValue: any) {
 
+    const tarea = new Tarea();
+    tarea.descripcion = FormsValue.descripcion;
+    tarea.estado = FormsValue.estado;
+    console.log(FormsValue);
+    this._tareaService.addtask(tarea);
+
+
+  }
 }
