@@ -1,0 +1,26 @@
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="page-header text-center">Gestionardor de Tareas</h2>
+    </div>
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <input type="text" class="form-control" placeholder="Digite el codigo de Tarea">
+    </div>
+</div>
+<br>
+<button type="button" class="btn btn-primary">Buscar</button>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <ul class="list-group">
+
+            <li class="list-group-item" *ngFor="let tak of task"><span class="badge"><span  class="glyphicon glyphicon-ok text-right" aria-hidden="true"></span></span>{{tak.descripcion}}</li>
+
+        </ul>
+    </div>
+</div>
